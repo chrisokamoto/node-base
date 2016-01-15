@@ -1,4 +1,4 @@
-module.exports = (express, authService) ->
+module.exports = (express, authService, logService) ->
   authRouter = express.Router()
 
   authRouter.get '/', (req, res) ->
@@ -7,7 +7,7 @@ module.exports = (express, authService) ->
       message: 'Bem vindo à API! Esse é o único endereço da aplicação que você pode acessar sem um token'
 
   authRouter.post '/auth', (req, res) ->
-    authService.login req.body.username, req.body.password, (message)->
+    authService.login req.body.company, req.body.key, (message)->
       res.json message
     
   authRouter.use (req, res, next) -> 
@@ -21,6 +21,15 @@ module.exports = (express, authService) ->
         req.decoded = decoded
         next()        
     return
+
+  authRouter.use (req, res, next) ->
+    logService.logRequest req
+    next()
+
+  authRouter.use (req, res, next) -> 
+    res.redirect req.decoded.url + req.originalUrl
+
+
 
   authRouter.get '/teste', (req, res) ->
     res.json

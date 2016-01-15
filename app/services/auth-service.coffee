@@ -1,22 +1,21 @@
-module.exports = (User, jwt, config) ->
+module.exports = (Company, jwt, config) ->
   AuthService = 
-    login: (username, password, callback) ->
-      User.getPasswordByUsername username, (user) ->
-        if !user
+    login: (company_name, key, callback) ->
+      Company.getCompanyByNameAndKey company_name, key, (company) ->
+        if !company
             callback success: false,
-            message: 'Falha na autenticação: Usuário não encontrado'
+            message: 'Falha na autenticação: Empresa não encontrada'
 
         else
-          validPassword = user.comparePassword(password)
-          if !validPassword
+          if company.key isnt key
 
               callback success: false,
-              message: 'Falha na autenticação: Senha incorreta.'
+              message: 'Falha na autenticação: Chave de acesso incorreta.'
             else
-              token = jwt.sign({id: user._id, username: username}, config.secret, expiresInMinutes: 1440)
+              token = jwt.sign({id: company._id, company: company.name, url: company.url}, config.secret, expiresInMinutes: 1440)
               
               callback success: true,
-              message: 'Usuário autenticado com sucesso! Token emitido.',
+              message: 'Empresa autenticada com sucesso! Token emitido.',
               token: token
     verify: (token, callback) ->
       if !token

@@ -5,10 +5,12 @@ module.exports = (mongoose) ->
     date: Date
     ip: String
     method: String
-    url: String
+    originalUrl: String
     headers: Schema.Types.Mixed
     body: Schema.Types.Mixed
     params: Schema.Types.Mixed
+    smartUrl: String
+    company: String
   )
 
   return mongoose.model 'Log', LogSchema

@@ -13,7 +13,7 @@ mainApp = express()
 api = express()
 
 #Atribui a sub-aplicação ao endereço '/api'
-mainApp.use '/api', api
+mainApp.use '/', api
 
 #Configura a sub-aplicação para trabalhar com JSON
 api.use bodyParser.urlencoded(extended: true)
@@ -33,18 +33,21 @@ mainApp.use morgan 'dev'
 mongoose.connect config.database
 
 #Obtém modelos
+
+Company = require('./app/models/company')(mongoose)
 Log = require('./app/models/log')(mongoose)
 User = require('./app/models/user')(mongoose, bcrypt)
 
+
 #Obtém serviços
-authService = require('./app/services/auth-service')(User, jwt, config)
+authService = require('./app/services/auth-service')(Company, jwt, config)
 logService = require('./app/services/log-service')(Log, config)
 
 #Inicializa rotas
 logRoutes = require('./app/routes/log-routes')(express, logService)
 api.use '/', logRoutes
 
-authRoutes = require('./app/routes/auth-routes')(express, authService)
+authRoutes = require('./app/routes/auth-routes')(express, authService, logService)
 api.use '/', authRoutes
 
 userRoutes = require('./app/routes/user-routes')(express)

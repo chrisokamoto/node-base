@@ -7,16 +7,20 @@ module.exports = (express, authService, logService) ->
       message: 'Bem vindo à API! Esse é o único endereço da aplicação que você pode acessar sem um token'
 
   authRouter.post '/auth', (req, res) ->
-    authService.login req.body.company, req.body.key, (message)->
+    authService.login req.body.company, req.body.chaveAcesso, res, (message)->
       res.json message
     
   authRouter.use (req, res, next) -> 
+    console.log("teste")
     token = req.body?.token or req.query?.token or req.headers['x-access-token']
+    console.log token
     authService.verify token, (error, decoded) ->
+      console.log(res.status)
       if error
+        console.log(res.status)
         res.status(203).send
-          success: false
-          message: error.message
+          # success: false
+          # message: error.message
       else
         req.decoded = decoded
         next()        

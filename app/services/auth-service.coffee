@@ -1,13 +1,14 @@
 module.exports = (Company, jwt, config) ->
   AuthService = 
-    login: (company_name, key, callback) ->
-      Company.getCompanyByNameAndKey company_name, key, (company) ->
+    login: (company_name, chaveAcesso, res, callback) ->
+      Company.getCompanyByNameAndKey company_name, chaveAcesso, (company) ->
         if !company
+            res.status(203).send
             callback success: false,
             message: 'Falha na autenticação: Empresa não encontrada'
 
         else
-          if company.key isnt key
+          if company.chaveAcesso isnt chaveAcesso
 
               callback success: false,
               message: 'Falha na autenticação: Chave de acesso incorreta.'

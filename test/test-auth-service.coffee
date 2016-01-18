@@ -37,7 +37,7 @@ describe 'AuthService', ->
         done()
 
   describe 'O processo de autenticação', ->
-    it 'deve barrar usuários inexistentes', (done) ->
+    xit 'deve barrar usuários inexistentes', (done) ->
       user_mock.user = null
       service.login 'teste', '', (result) ->
         result.success.should.be.false
@@ -45,7 +45,7 @@ describe 'AuthService', ->
         result.should.not.have.property 'token'
         done()
 
-    it 'deve barrar senhas incorretas', (done)->
+    xit 'deve barrar senhas incorretas', (done)->
       user_mock.user = fake_user
       service.login 'teste', '', (result) ->
         result.success.should.be.false
@@ -53,7 +53,7 @@ describe 'AuthService', ->
         result.should.not.have.property 'token'
         done()
 
-    it 'deve permitir usuários existentes com a senha correta', (done) ->
+    xit 'deve permitir usuários existentes com a senha correta', (done) ->
       user_mock.user = fake_user
       user_mock.passwordCorrect = true
       service.login 'teste', '', (result) ->

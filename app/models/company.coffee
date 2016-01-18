@@ -3,13 +3,13 @@ module.exports = (mongoose) ->
 
   CompanySchema = new Schema(
     name: String
-    key: String
+    chaveAcesso: String
     url: String
   )
 
   #Métodos estáticos
-  CompanySchema.statics.getCompanyByNameAndKey = (name, key, callback) ->
-    this.findOne( key: key ).exec (error, company) ->
+  CompanySchema.statics.getCompanyByNameAndKey = (name, chaveAcesso, callback) ->
+    this.findOne( chaveAcesso: chaveAcesso ).exec (error, company) ->
       throw error if error
       callback company
   return mongoose.model 'Company', CompanySchema

@@ -36,28 +36,28 @@ describe 'AuthService', ->
         decoded.should.have.property('username').which.equals 'barack_obama'
         done()
 
-  describe 'O processo de autenticação', ->
-    xit 'deve barrar usuários inexistentes', (done) ->
-      user_mock.user = null
-      service.login 'teste', '', (result) ->
-        result.success.should.be.false
-        result.message.should.contain 'Usuário não encontrado'
-        result.should.not.have.property 'token'
-        done()
+  # describe 'O processo de autenticação', ->
+  #   xit 'deve barrar usuários inexistentes', (done) ->
+  #     user_mock.user = null
+  #     service.login 'teste', '', (result) ->
+  #       result.success.should.be.false
+  #       result.message.should.contain 'Usuário não encontrado'
+  #       result.should.not.have.property 'token'
+  #       done()
 
-    xit 'deve barrar senhas incorretas', (done)->
-      user_mock.user = fake_user
-      service.login 'teste', '', (result) ->
-        result.success.should.be.false
-        result.message.should.contain 'Senha incorreta'
-        result.should.not.have.property 'token'
-        done()
+  #   xit 'deve barrar senhas incorretas', (done)->
+  #     user_mock.user = fake_user
+  #     service.login 'teste', '', (result) ->
+  #       result.success.should.be.false
+  #       result.message.should.contain 'Senha incorreta'
+  #       result.should.not.have.property 'token'
+  #       done()
 
-    xit 'deve permitir usuários existentes com a senha correta', (done) ->
-      user_mock.user = fake_user
-      user_mock.passwordCorrect = true
-      service.login 'teste', '', (result) ->
-        result.success.should.be.true
-        result.message.should.contain 'autenticado com sucesso'
-        result.should.have.property 'token'
-        done()
+  #   xit 'deve permitir usuários existentes com a senha correta', (done) ->
+  #     user_mock.user = fake_user
+  #     user_mock.passwordCorrect = true
+  #     service.login 'teste', '', (result) ->
+  #       result.success.should.be.true
+  #       result.message.should.contain 'autenticado com sucesso'
+  #       result.should.have.property 'token'
+  #       done()

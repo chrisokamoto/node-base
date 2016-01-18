@@ -1,7 +1,7 @@
 module.exports = (Company, jwt, config) ->
   AuthService = 
     login: (company_name, chaveAcesso, res, callback) ->
-      Company.getCompanyByNameAndKey company_name, chaveAcesso, (company) ->
+      Company.getCompanyByKey company_name, chaveAcesso, (company) ->
         if !company
             res.status(203).send
             callback success: false,

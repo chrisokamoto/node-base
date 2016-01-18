@@ -29,11 +29,4 @@ module.exports = (express, authService, logService) ->
   authRouter.use (req, res, next) -> 
     res.redirect req.decoded.url + req.originalUrl
 
-
-
-  authRouter.get '/teste', (req, res) ->
-    res.json
-      success: true
-      message: 'Você acessou uma sessão segura de nossa API! Seja bem-vindo(a) ' + req.decoded.username
-
   return authRouter

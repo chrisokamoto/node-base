@@ -36,8 +36,6 @@ mongoose.connect config.database
 
 Company = require('./app/models/company')(mongoose)
 Log = require('./app/models/log')(mongoose)
-User = require('./app/models/user')(mongoose, bcrypt)
-
 
 #Obtém serviços
 authService = require('./app/services/auth-service')(Company, jwt, config)
@@ -49,9 +47,6 @@ api.use '/', logRoutes
 
 authRoutes = require('./app/routes/auth-routes')(express, authService, logService)
 api.use '/', authRoutes
-
-userRoutes = require('./app/routes/user-routes')(express)
-api.use '/', userRoutes
 
 #Inicia o servidor na porta informada pela linha de comando ou na padrão definida no arquivo config.coffee
 mainApp.listen config.port

@@ -8,7 +8,7 @@ module.exports = (mongoose) ->
   )
 
   #Métodos estáticos
-  CompanySchema.statics.getCompanyByNameAndKey = (name, chaveAcesso, callback) ->
+  CompanySchema.statics.getCompanyByKey = (name, chaveAcesso, callback) ->
     this.findOne( chaveAcesso: chaveAcesso ).exec (error, company) ->
       throw error if error
       callback company

@@ -34,14 +34,24 @@ mongoose.connect config.database
 
 #Obtém modelos
 
+MobileUpdate = require('./app/models/mobileUpdate')(mongoose)
 Company = require('./app/models/company')(mongoose)
 Log = require('./app/models/log')(mongoose)
 
+# new MobileUpdate({
+# 	version: 2,
+# 	file: "abc"
+# }).save();
+
 #Obtém serviços
 authService = require('./app/services/auth-service')(Company, jwt, config)
+mobileUpdateService = require('./app/services/mobileUpdate-service')(MobileUpdate, config)
 logService = require('./app/services/log-service')(Log, config)
 
 #Inicializa rotas
+mobileUpdateRoutes = require('./app/routes/mobileUpdate-routes')(express, mobileUpdateService)
+api.use '/mobileUpdate/', mobileUpdateRoutes
+
 logRoutes = require('./app/routes/log-routes')(express, logService)
 api.use '/', logRoutes
 

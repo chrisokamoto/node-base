@@ -1,4 +1,4 @@
-module.exports = (express, authService, logService) ->
+module.exports = (express, authService, logService, mobileUpdateService) ->
   authRouter = express.Router()
 
   authRouter.get '/', (req, res) ->

@@ -44,7 +44,7 @@ module.exports = (MobileUpdate, config) ->
       MobileUpdate.getLastMobileUpdate (mobileUpdate) ->
         if mobileUpdate
           binaryData = new Buffer(mobileUpdate.file.toString(), 'base64');
-          file = __dirname + '/msmart_update.apk'
+          file = './msmart_update.apk'
           
           filename = path.basename(file)
           mimetype = mime.lookup(file)
@@ -52,7 +52,7 @@ module.exports = (MobileUpdate, config) ->
           res.setHeader('Content-disposition', 'attachment; filename=' + filename)
           res.setHeader('Content-type', mimetype)
 
-          fileStream = fs.writeFileSync(file, binaryData)
+          # fileStream = fs.writeFileSync(file, binaryData)
 
           callback success: true,
           message: "Download bem sucedido."

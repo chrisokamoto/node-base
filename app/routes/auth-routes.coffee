@@ -9,8 +9,9 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
   authRouter.post '/auth', (req, res) ->
     authService.login req.body.company, req.body.chaveAcesso, res, (message)->
       res.json message
-    
-  authRouter.use (req, res, next) -> 
+
+
+  authRouter.use (req, res, next) ->
     token = req.body?.token or req.query?.token or req.headers['x-access-token']
     authService.verify token, (error, decoded) ->
       if error
@@ -19,14 +20,15 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
           message: error.message
       else
         req.decoded = decoded
-        next()        
+        next()
     return
 
   authRouter.use (req, res, next) ->
     logService.logRequest req
     next()
 
-  authRouter.use (req, res, next) -> 
-    res.redirect req.decoded.url + req.originalUrl
+  authRouter.use (req, res, next) ->
+    url = req.decoded.url + req.originalUrl
+    res.redirect(307, url)
 
   return authRouter

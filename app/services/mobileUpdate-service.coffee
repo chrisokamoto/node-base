@@ -5,6 +5,7 @@ mime = require('mime');
 module.exports = (MobileUpdate, config) ->
   MobileUpdateService = 
     check_version: (version, res, callback) ->
+      console.log "check_version"
       MobileUpdate.getLastMobileUpdate (mobileUpdate) ->
         if !mobileUpdate
             res.status(500).send
@@ -13,7 +14,6 @@ module.exports = (MobileUpdate, config) ->
 
         else
           if version < mobileUpdate.version
-              res.status(200).send
               callback success: true,
               message: 'Versão desatualizada. Por favor, atualize a versão.'
             else

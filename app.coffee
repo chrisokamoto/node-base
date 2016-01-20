@@ -49,14 +49,14 @@ mobileUpdateService = require('./app/services/mobileUpdate-service')(MobileUpdat
 logService = require('./app/services/log-service')(Log, config)
 
 #Inicializa rotas
-mobileUpdateRoutes = require('./app/routes/mobileUpdate-routes')(express, mobileUpdateService)
-api.use '/mobileUpdate/', mobileUpdateRoutes
-
 logRoutes = require('./app/routes/log-routes')(express, logService)
 api.use '/', logRoutes
 
 authRoutes = require('./app/routes/auth-routes')(express, authService, logService)
 api.use '/', authRoutes
+
+mobileUpdateRoutes = require('./app/routes/mobileUpdate-routes')(express, mobileUpdateService)
+api.use '/mobileUpdate/', mobileUpdateRoutes
 
 #Inicia o servidor na porta informada pela linha de comando ou na padrão definida no arquivo config.coffee
 mainApp.listen config.port

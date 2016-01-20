@@ -12,6 +12,7 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
 
 
   authRouter.use (req, res, next) ->
+    console.log "authRouter"
     token = req.body?.token or req.query?.token or req.headers['x-access-token']
     authService.verify token, (error, decoded) ->
       if error
@@ -30,6 +31,9 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
 
   authRouter.use (req, res, next) ->
     url = req.decoded.url + req.originalUrl
-    res.redirect(307, url)
+    if url.indexOf("mobileUpdate") == -1
+      res.redirect(307, url)
+    else
+      next()
 
   return authRouter

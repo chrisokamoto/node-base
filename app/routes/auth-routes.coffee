@@ -15,6 +15,7 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
     token = req.body?.token or req.query?.token or req.headers['x-access-token']
     authService.verify token, (error, decoded) ->
       if error
+        console.log "ERRO 203 - AUTH-ROUTES"
         res.status(203).send
           success: false
           message: error.message

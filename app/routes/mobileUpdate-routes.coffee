@@ -5,15 +5,15 @@ multipartMiddleware = multipart();
 module.exports = (express, mobileUpdateService) ->
   mobileUpdateRouter = express.Router()
 
-  mobileUpdateRouter.post '/mobileUpdate', (req, res) ->
+  mobileUpdateRouter.post '/', (req, res) ->
     mobileUpdateService.check_version req.body.version, res, (message)->
       res.json message
 
-  mobileUpdateRouter.post '/mobileUpdate/update_version', multipartMiddleware, (req, res) ->
+  mobileUpdateRouter.post '/update_version', multipartMiddleware, (req, res) ->
     mobileUpdateService.update_version req.body.version, req.files.file.path, res, (message) ->
       res.json message
 
-  mobileUpdateRouter.get '/mobileUpdate', (req, res) ->
+  mobileUpdateRouter.get '/', (req, res) ->
     mobileUpdateService.download_apk res, (message) ->
       res.json message
     

@@ -50,7 +50,7 @@ logService = require('./app/services/log-service')(Log, config)
 
 #Inicializa rotas
 mobileUpdateRoutes = require('./app/routes/mobileUpdate-routes')(express, mobileUpdateService)
-api.use '/', mobileUpdateRoutes
+api.use '/mobileUpdate/', mobileUpdateRoutes
 
 logRoutes = require('./app/routes/log-routes')(express, logService)
 api.use '/', logRoutes

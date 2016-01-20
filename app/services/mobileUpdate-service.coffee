@@ -13,9 +13,11 @@ module.exports = (MobileUpdate, config) ->
 
         else
           if version < mobileUpdate.version
+              res.status(200).send
               callback success: true,
               message: 'Versão desatualizada. Por favor, atualize a versão.'
             else
+              res.status(204).send
               callback success: true,
               message: 'Versão atual é a mais recente.'
 

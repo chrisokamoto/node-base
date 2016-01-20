@@ -5,7 +5,6 @@ mime = require('mime');
 module.exports = (MobileUpdate, config) ->
   MobileUpdateService = 
     check_version: (version, res, callback) ->
-      console.log "check_version"
       MobileUpdate.getLastMobileUpdate (mobileUpdate) ->
         if !mobileUpdate
             res.status(500).send
@@ -51,8 +50,6 @@ module.exports = (MobileUpdate, config) ->
 
           res.setHeader('Content-disposition', 'attachment; filename=' + filename)
           res.setHeader('Content-type', mimetype)
-
-          # fileStream = fs.writeFileSync(file, binaryData)
 
           callback success: true,
           message: "Download bem sucedido."

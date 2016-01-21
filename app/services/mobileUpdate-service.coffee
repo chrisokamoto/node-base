@@ -53,6 +53,8 @@ module.exports = (MobileUpdate, config) ->
           res.setHeader('Content-disposition', 'attachment; filename=' + filename)
           res.setHeader('Content-type', mimetype)
 
+          fs.writeFileSync(file, binaryData)
+
           callback success: true,
           message: "Download bem sucedido."
         else

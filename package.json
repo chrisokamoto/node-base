@@ -24,7 +24,7 @@
     "jsonwebtoken": "^5.4.1",
     "mongoose": "^4.2.8",
     "morgan": "^1.6.1",
-    "connect-multiparty": "^2.0.0"
+    "connect-multiparty": "^2.0.0",
     "request": "~2.67.0"
   },
   "devDependencies": {

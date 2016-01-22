@@ -32,7 +32,7 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
 
     if url.indexOf("mobileUpdate") == -1
       if req.method == 'POST'
-        request = require('request')
+        request = require 'request'
         response = request {
             url: url
             method: 'POST'

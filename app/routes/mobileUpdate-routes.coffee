@@ -14,7 +14,7 @@ module.exports = (express, mobileUpdateService) ->
       res.json message
 
   mobileUpdateRouter.get '/', (req, res) ->
-    mobileUpdateService.download_apk res, (message) ->
+    mobileUpdateService.download_apk req, res, (message) ->
       res.json message
     
   mobileUpdateRouter.use (req, res, next) -> 

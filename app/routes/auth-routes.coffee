@@ -12,12 +12,9 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
 
 
   authRouter.use (req, res, next) ->
-    console.log "authRouter"
     token = req.body?.token or req.query?.token or req.headers['x-access-token']
     authService.verify token, (error, decoded) ->
-      console.log "error auth router " + error
       if error
-        console.log "ERRO 203 - AUTH-ROUTES"
         res.status(203).send
           success: false
           message: error.message
@@ -33,12 +30,9 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
   authRouter.use (req, res, next) ->
 
     url = req.decoded.url + req.originalUrl
-    console.log url
     if url.indexOf("mobileUpdate") == -1
-      console.log "url não contém mobileUpdate"
       res.redirect(307, url)
     else
-      console.log "url contém mobileUpdate"      
       next()
 
   return authRouter

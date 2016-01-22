@@ -5,7 +5,6 @@ mime = require('mime');
 module.exports = (MobileUpdate, config) ->
   MobileUpdateService = 
     check_version: (version, res, callback) ->
-      console.log "check_version"
       MobileUpdate.getLastMobileUpdate (mobileUpdate) ->
         if !mobileUpdate
             res.status(500).send
@@ -41,24 +40,20 @@ module.exports = (MobileUpdate, config) ->
           callback sucess: false,
           message: 'Erro ao atualizar versão.'
 
-    download_apk: (res, callback) ->
+    download_apk: (req, res, callback) ->
       MobileUpdate.getLastMobileUpdate (mobileUpdate) ->
         if mobileUpdate
           binaryData = new Buffer(mobileUpdate.file.toString(), 'base64');
-          file = './msmart_update.txt'
-          # console.log mobileUpdate.file.toString()
+          file = './msmart_update.apk'          
           
           filename = path.basename(file)
-          mimetype = mime.lookup(file)
+          mimetype = mime.lookup(file)          
 
           res.setHeader('Content-disposition', 'attachment; filename=' + filename)
-          res.setHeader('Content-type', mimetype)
+          res.setHeader('Content-type', mimetype)                        
 
-          fs.writeFileSync(file, "teste")  
-          res.end()                  
-
-          callback success: true,
-          message: "Download bem sucedido."          
+          res.write(binaryData, "binary")
+          res.end()          
         else
           callback success: false,
           message: "Versão não encontrada."

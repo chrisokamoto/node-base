@@ -6,7 +6,7 @@ morgan = require 'morgan'
 path = require 'path'
 jwt = require 'jsonwebtoken'
 bcrypt = require 'bcrypt-nodejs'
-request = require 'request'
+
 
 
 #Cria a aplicação Express e uma sub-aplicação responsável pela parte da API

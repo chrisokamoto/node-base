@@ -29,23 +29,26 @@ module.exports = (express, authService, logService, mobileUpdateService) ->
 
   authRouter.use (req, res, next) ->
     url = req.decoded.url + req.originalUrl
-    myBody = ''
-    if req.method == 'POST'
-      request = require('request')
-      response = request {
-          url: url
-          method: 'POST'
-          form: req.body
-      }, (error, response, body) ->
-          if error
-            res.status(500).send
-              success: false
-              message: 'Dados não sincronizados'
-          else
-            res.status(200).send
-              success: true
-              message: 'Sincronizados'
+
+    if url.indexOf("mobileUpdate") == -1
+      if req.method == 'POST'
+        request = require('request')
+        response = request {
+            url: url
+            method: 'POST'
+            form: req.body
+        }, (error, response, body) ->
+            if error
+              res.status(500).send
+                success: false
+                message: 'Dados não sincronizados'
+            else
+              res.status(200).send
+                success: true
+                message: 'Sincronizados'
+      else
+        res.redirect(url)
     else
-      res.redirect(url)
+      next()
 
   return authRouter

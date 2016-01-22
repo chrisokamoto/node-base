@@ -3,6 +3,7 @@ module.exports = (Company, jwt, config) ->
     login: (company_name, chaveAcesso, res, callback) ->
       Company.getCompanyByKey company_name, chaveAcesso, (company) ->
         if !company
+            console.log "ERRO 203 - AUTH-SERVICE"
             res.status(203).send
             callback success: false,
             message: 'Falha na autenticação: Empresa não encontrada'

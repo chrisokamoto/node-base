@@ -7,7 +7,7 @@ module.exports = (mongoose) ->
   }, { collection: 'mobileUpdates' });
 
   #Métodos estáticos
-  MobileUpdateSchema.statics.getMobileUpdateByVersion = (version, callback) ->
+  MobileUpdateSchema.statics.getLastMobileUpdate = (callback) ->
     this.findOne( ).exec (error, mobileUpdate) ->
       throw error if error
       callback mobileUpdate
